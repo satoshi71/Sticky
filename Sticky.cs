@@ -15,10 +15,11 @@ class Sticky{
 
 partial class StickyNote : Form{
 	private int index;
-	private Point mousePoint;	//マウスのクリック位置を記憶
+	private Point mousePoint;
 	private Label label;
 	private TextBox textBox;
 	private StickyList list;
+	private bool canSave;
 
 	public StickyNote(string[] args){
 		this.index=0;
@@ -28,6 +29,7 @@ partial class StickyNote : Form{
 		this.Text = "付箋紙";
 		this.FormBorderStyle = FormBorderStyle.None;
 		this.ShowInTaskbar = false;
+		this.canSave = false;
 
 		this.MouseDown += new MouseEventHandler(MouseDowned);
 		this.MouseMove += new MouseEventHandler(MouseMoved);
@@ -64,6 +66,7 @@ partial class StickyNote : Form{
 	private void addNewSticky(){
 		list.DataList.Add(this.getDefaultSticky());
 		index = list.DataList.Count - 1;
+		this.canSave = true;
 		this.saveData(); //保存
 	}
 
@@ -105,6 +108,7 @@ partial class StickyNote : Form{
 			list.DataList[index].Width = this.Width;
 			list.DataList[index].Height = this.Height;
 			list.DataList[index].Text = label.Text;
+			this.canSave = true;
 			this.saveData();
 		}
 	}
@@ -133,6 +137,7 @@ partial class StickyNote : Form{
 				list.DataList[index].Red = (int)cd.Color.R;
 				list.DataList[index].Green = (int)cd.Color.G;
 				list.DataList[index].Blue = (int)cd.Color.B;
+				this.canSave = true;
 				this.saveData();
 			}
 		}
@@ -148,6 +153,7 @@ partial class StickyNote : Form{
 		textBox.Font = new Font(fontName, fontSize);
 		list.DataList[index].FontFamily = fontName;
 		list.DataList[index].FontSize = fontSize;
+		this.canSave = true;
 		this.saveData();
 	}
 
@@ -178,6 +184,8 @@ partial class StickyNote : Form{
 	}
 
 	private void saveData(){
+		if(!this.canSave) return;
+		
 		//テキストの改行処理
 		for(int i=0; i<list.DataList.Count; i++){
 			list.DataList[i].Text = list.DataList[i].Text.Replace("\n", "\\n");
@@ -209,6 +217,8 @@ partial class StickyNote : Form{
 		serializer.Serialize(writer, list);
 		writer.Flush();
 		writer.Close();
+
+		this.canSave = false;
 	}
 
 	private void deleteData(){
@@ -321,6 +331,7 @@ partial class StickyNote : Form{
 	        this.Location = new Point(
 	            this.Location.X + e.X - mousePoint.X,
 	            this.Location.Y + e.Y - mousePoint.Y);
+	        this.canSave = true;
 		}
 	}
 }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stickys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Sticky id="8d4cc158444b233">
+    <text>テスト付箋紙1</text>
+    <width>186</width>
+    <height>41</height>
+    <top>284</top>
+    <left>1056</left>
+    <red>204</red>
+    <green>204</green>
+    <blue>255</blue>
+    <font-family>Meiryo UI</font-family>
+    <font-size>14</font-size>
+  </Sticky>
+  <Sticky id="8d4ccf879e007c1">
+    <text>テスト付箋紙</text>
+    <width>200</width>
+    <height>80</height>
+    <top>344</top>
+    <left>1052</left>
+    <red>255</red>
+    <green>200</green>
+    <blue>200</blue>
+    <font-family>Meiryo UI</font-family>
+    <font-size>10</font-size>
+  </Sticky>
+</Stickys>
